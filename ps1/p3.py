@@ -42,7 +42,7 @@ def compute_vanishing_point(points):
     return inte[:2]/inte[2]
     pass
 
-
+# It has some problme!!!!
 def compute_K_from_vanishing_points(vanishing_points):
     """Compute intrinsic matrix given vanishing points.
 
