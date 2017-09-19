@@ -19,8 +19,8 @@ def compute_epipole(points1, points2, F):
     # TODO: Implement this method!
     epline2=F.dot(points2.T)
     A=epline2.T
-    U,s,V=np.linalg.svd(A)
-    ep1=V[0:1,:]
+    U,s,Vt=np.linalg.svd(A)
+    ep1=Vt[-1:,:]
     epipole=ep1/ep1[0,2]
     return epipole
     raise Exception('Not Implemented Error')
