@@ -159,7 +159,7 @@ def compute_rotation_matrix_between_cameras(vanishing_pts1, vanishing_pts2, K):
     mag_d2=np.matlib.repmat(mag_d2,3,1)
     vanishing_d1=np.divide(vanishing_d1,mag_d1)
     vanishing_d2=np.divide(vanishing_d2,mag_d2)
-    R=np.linalg.inv(vanishing_d1).dot(vanishing_d2)
+    R=vanishing_d2.dot(np.linalg.inv(vanishing_d1))
     return R
     pass
 
