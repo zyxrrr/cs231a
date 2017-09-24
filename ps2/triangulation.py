@@ -71,8 +71,8 @@ def linear_estimate_3d_point(image_points, camera_matrices):
         temp2[2*idx+1,:]=camera_matrices[idx,1:2,:]
     temp1=np.multiply(imgPoints,M3)
     A=temp1-temp2
-    U,s,V=np.linalg.svd(A)
-    point_3d=V[:1,:]
+    U,s,Vt=np.linalg.svd(A)
+    point_3d=Vt[-1:,:]
     point_3d=point_3d/point_3d[0,3]
     #M3=camera_matrices[:,2:3,:]
     #M3=M3.flatten()
