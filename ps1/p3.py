@@ -42,7 +42,7 @@ def compute_vanishing_point(points):
     return inte[:2]/inte[2]
     pass
 
-# It has some problme!!!!
+
 def compute_K_from_vanishing_points(vanishing_points):
     """Compute intrinsic matrix given vanishing points.
 
@@ -59,34 +59,38 @@ def compute_K_from_vanishing_points(vanishing_points):
     a=x[0]*y[0]+x[1]*y[1]
     b=x[2]*y[0]+x[0]*y[2]
     c=x[2]*y[1]+x[1]*y[2]
-    A1=np.array([[a,b,c]])
-    b1=-x[2]*y[2]
+    A1=np.array([[a,b,c,1]])
+    
     
     x=vanishing_points[0,:]
     y=vanishing_points[2,:]
     a=x[0]*y[0]+x[1]*y[1]
     b=x[2]*y[0]+x[0]*y[2]
     c=x[2]*y[1]+x[1]*y[2]
-    A2=np.array([[a,b,c]])
-    b2=-x[2]*y[2]
-
+    A2=np.array([[a,b,c,1]])
+    
     x=vanishing_points[1,:]
     y=vanishing_points[2,:]
     a=x[0]*y[0]+x[1]*y[1]
     b=x[2]*y[0]+x[0]*y[2]
     c=x[2]*y[1]+x[1]*y[2]
-    A3=np.array([[a,b,c]])
-    b3=-x[2]*y[2]
+    A3=np.array([[a,b,c,1]])
+    
 
     A=np.concatenate((A1,A2,A3),axis=0)
-    b=np.array([[b1],[b2],[b3]])
     
-    x=np.linalg.solve(A,b)
+    U,s,V=np.linalg.svd(A)
+    V = V.T
+    #print(V)
+    x = V[:,3]
+    #print(x)
     #return x
-    w1=x[0,0]
-    w4=x[1,0]
-    w5=x[2,0]
-    W=np.array([[w1,0,w4],[0,w1,w5],[w4,w5,1]])
+    w1=x[0]
+    w4=x[1]
+    w5=x[2]
+    w6=x[3]
+    W=np.array([[w1,0,w4],[0,w1,w5],[w4,w5,w6]])
+  
     #return W
     Winv=np.linalg.inv(W)
     #return Winv
